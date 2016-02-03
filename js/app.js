@@ -1,13 +1,17 @@
+$(document).ready(function(){$('#message').text(getBluetoothApi())})
 
-    alert('WebComponentsReady');
-    var scanButton = document.getElementById('scanForDevices');
+var scanButton = document.getElementById('scanForDevices');
 
-    function scanForDevices() {
-        navigator.bluetooth.requestDevice({ filters: [{ services: ['device_information'] }] })
-        .then(device => {
-            console.log('device', device);
-        })
-        .catch(error => { console.log(error); });
-    }
+function getBluetoothApi() {
+    return JSON.stringify(navigator.bluetooth) || "No web bluetooth API."
+}
 
-    scanButton.addEventListener('click', scanForDevices);
+function scanForDevices() {
+    navigator.bluetooth.requestDevice({ filters: [{ services: ['device_information'] }] })
+    .then(device => {
+        console.log('device', device);
+    })
+    .catch(error => { console.log(error); });
+}
+
+scanButton.addEventListener('click', scanForDevices);
